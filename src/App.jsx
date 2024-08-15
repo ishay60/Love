@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import LciText from "./LciText";
 
 const nameScores = new Map(); // Move the map outside the component
 
@@ -50,8 +51,11 @@ const App = () => {
         <button onClick={calculateLoveScore} className="button">
           Calculate Love Score
         </button>
-        {score !== null && <p className="score">Your love score is: {score}</p>}
+        {score !== null && (
+          <p className="score">Your love score is: {score} LCI</p>
+        )}
       </div>
+      <LciText />
     </div>
   );
 };
