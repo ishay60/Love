@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import LciText from "./LciText";
 
@@ -8,12 +8,20 @@ const App = () => {
   const [name1, setName1] = useState("");
   const [name2, setName2] = useState("");
   const [score, setScore] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const normalizeName = (name) => {
     return name.replace(/[^a-zA-Z]/g, "").toLowerCase();
   };
 
   const calculateLoveScore = () => {
+    if (!name1 || !name2) {
+      setErrorMessage("Both names must be entered.");
+      return;
+    }
+
+    setErrorMessage(""); // Clear any previous error message
+
     const normalizedName1 = normalizeName(name1);
     const normalizedName2 = normalizeName(name2);
     const combinedName = [normalizedName1, normalizedName2].sort().join("");
@@ -51,6 +59,7 @@ const App = () => {
         <button onClick={calculateLoveScore} className="button">
           Calculate Love Score
         </button>
+        {errorMessage && <p className="error">{errorMessage}</p>}
         {score !== null && (
           <p className="score">Your love score is: {score} LCI</p>
         )}
